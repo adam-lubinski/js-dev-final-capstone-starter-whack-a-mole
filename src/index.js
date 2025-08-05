@@ -363,7 +363,7 @@ changeDifficultyButton.addEventListener("click", function(){
 function startGame(){
   clearScore();
   stopGame();   //optional
-  setDuration(15);
+  setDuration(10);
   setEventListeners();
   startTimer();
   showUp();
