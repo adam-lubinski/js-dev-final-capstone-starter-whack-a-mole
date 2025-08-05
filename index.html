@@ -1,21 +1,25 @@
 <html>
   <head>
     <link rel="stylesheet" href="./src/styles.css">
+    <button id="mute">Mute</button>
+    <button id="changeDifficulty">Change Difficulty</button>
+    <p>Difficulty: <span id ="difficulty"> </span></p>
   </head>
   <body>
-    <h1 id = "title">Whack-A-Mole</h1>
+    <h1 id = "title">Whack-A-Pigeon</h1>
     <div>
       <div>
         <h2>Click <button id="start">Start</button> to play!</h2>
       </div>
       <div>
-        <h2>score: <span id="score">0</span></h2>
+        <h2>Score: <span id="score">0</span></h2>
       </div>
       <div>
-          <h2><span id="timer">0</span> seconds left.</h2>
+          <h2><span id="timer">0</span> seconds left</h2>
       </div>
     </div>
-    <div class="grid">
+    
+    <div class = "grid">
       <div id="hole0" class="hole">
         <div id="mole0" class="mole"></div>
       </div>
@@ -45,6 +49,7 @@
         <div id="mole8" class="mole"></div>
       </div>
     </div>
+    <img id="hit-cloud" src="../assets/hitCloud.png" alt="hit cloud" width="75" height="75">
     <script src="./src/index.js"></script>
   </body>
 </html>

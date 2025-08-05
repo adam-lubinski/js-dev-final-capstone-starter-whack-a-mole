@@ -9,7 +9,10 @@ let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
-let difficulty = "hard";
+let difficulty = "easy";
+document.getElementById("difficulty").innerHTML = difficulty.toUpperCase();
+
+
 
 /**
  * Generates a random integer within a range.
@@ -225,10 +228,11 @@ function startTimer() {
 */
 function whack(event) {
   // TODO: Write your code here.
-  // call updateScore()  
+  // call updateScore() 
   updateScore();
   return points;
 }
+
 
 /**
 *
@@ -237,8 +241,11 @@ function whack(event) {
 */
 function setEventListeners(){
   // TODO: Write your code here
-moles.forEach(
+  moles.forEach(
     mole => mole.addEventListener('click', whack)
+  );
+  moles.forEach(
+    mole => mole.addEventListener("click", hit)
   );
   return moles;
 }
@@ -266,6 +273,77 @@ function stopGame(){
   return "game stopped";
 }
 
+function hit(event){
+  // show hit cloud where the mole was clicked
+  //gets image for hit cloud
+  let hitCloud = document.getElementById("hit-cloud");
+  //sets position of hit cloud centered with cursor
+  hitCloud.style.left = event.clientX - hitCloud.width / 2 - 75 + "px";
+  hitCloud.style.top = event.clientY - hitCloud.height / 2 + "px";
+  //toggles visibility of hit cloud
+  hitCloud.style.display = "block";
+  setTimeout(function () {
+    hitCloud.style.display = "none";
+  }, 100);
+  playAudio(hitAudio);
+  return hitCloud;
+}
+
+// Audio Settings
+// audio for hit
+const hitAudio = new Audio("assets/hit.mp3");
+// audio for song
+const songAudio = new Audio("assets/molesong.mp3", autoplay = true);
+
+function playAudio(audio) {
+  audio.pause;
+  audio.currentTime = 0;
+  audio.play();
+}
+
+function loopAudio(audio) {
+  audio.loop = true;
+  playAudio(audio);
+}
+
+function stopAudio(audio) {
+  audio.pause();
+}
+
+function play(){
+  playAudio();
+}
+
+// play music
+loopAudio(songAudio);
+// toggle music
+const muteButton = document.querySelector('#mute');
+muteButton.addEventListener('click', function() {
+  if (songAudio.paused) {
+    songAudio.play();
+    muteButton.textContent = "Mute";
+  } else {
+    songAudio.pause();
+    muteButton.textContent = "Unmute";
+  }
+});
+
+//change difficulty
+const changeDifficultyButton = document.querySelector('#changeDifficulty');
+changeDifficultyButton.addEventListener("click", function(){
+  if (difficulty === "easy") {
+    difficulty = "normal";
+    document.getElementById("difficulty").innerHTML = difficulty.toUpperCase();
+  } else if (difficulty === "normal") {
+    difficulty = "hard";
+    document.getElementById("difficulty").innerHTML = difficulty.toUpperCase();
+  } else {
+    difficulty = "easy";
+    document.getElementById("difficulty").innerHTML = difficulty.toUpperCase();
+  }
+  return difficulty;
+});
+
 /**
 * This function starts the game when the `startButton` is clicked and initializes the game by performing the following steps: 
 
@@ -292,8 +370,8 @@ function startGame(){
   return "game started";
 }
 
-startButton.addEventListener("click", startGame);
 
+startButton.addEventListener("click", startGame);
 
 // Please do not modify the code below.
 // Used for testing purposes.
